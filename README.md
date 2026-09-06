@@ -6,15 +6,17 @@ The original [design](docs/source/THREADPORT_DESIGN.md), [contracts](docs/source
 
 ## Run locally
 
-Requires Node 24+ with builtin `node:sqlite`. No npm install, network, browser, or socket listener is needed. On this development machine, use the supplied runtime if `node` is not on PATH:
+Requires Node 24+ with builtin `node:sqlite` on PATH. After cloning, no npm install, network, browser, or socket listener is needed.
 
 ```sh
-/Users/sin-yebin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node src/cli.mjs capabilities
-/Users/sin-yebin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node src/cli.mjs inspect-source fixtures/conversation.json first
-/Users/sin-yebin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node --test
+git clone https://github.com/ruvora/codex-threadport.git threadport
+cd threadport
+node src/cli.mjs capabilities
+node src/cli.mjs inspect-source fixtures/conversation.json first
+node --test
 ```
 
-With Node on PATH, the portable equivalents are:
+Additional CLI examples:
 
 ```sh
 node src/cli.mjs help
@@ -67,12 +69,11 @@ Validate this checkout without installing:
 
 ```sh
 node scripts/validate-package.mjs
-node scripts/generate-schemas.mjs
 node --test
 node scripts/g0-harness.mjs
 ```
 
-The last command performs fresh-process synthetic package inspection and restart checks, removes its isolated temp directory, then deliberately exits **3** for **native G0/G3 NOT VERIFIED**. It is not a native resumability harness or an isolation attestation. Exact native prerequisites remain in the original addendum, section 8. The initial default-Python checks failed because PyYAML was missing; those exit-1 records remain historical failures. Subsequent official plugin-creator and skill validation passed using `/tmp/ruvora-plugin-validation/bin/python` (exit 0), as reported in the incident continuation record and directly checked in this thread. Default worker Python was not changed. The Node validator remains an additional subset/stdio check. See docs/VERIFICATION.md for exact commands and the distinction between structural validation and release readiness. Installation and host ingestion have not been tested.
+The last command performs fresh-process synthetic package inspection and restart checks, removes its isolated temp directory, then deliberately exits **3** for **native G0/G3 NOT VERIFIED**. It is not a native resumability harness or an isolation attestation. Exact native prerequisites remain in the original addendum, section 8. Official structural plugin and skill validation passed in a Python environment with PyYAML; earlier missing-dependency failures remain in the historical record. The Node validator is an additional subset/stdio check. See the [verification report](docs/VERIFICATION.md) and [2026-09-06 acceptance](docs/ACCEPTANCE_CONTINUATION_2026-09-06.md) for dated results. Schema regeneration, when developing schema changes, uses `node scripts/generate-schemas.mjs`. Installation and host ingestion remain unverified.
 
 ## Release gates
 
@@ -82,6 +83,6 @@ The last command performs fresh-process synthetic package inspection and restart
 | G1 conversation MVP | Partial local/synthetic coverage | Automated core tests; native operation lifecycle remains blocked |
 | G2 workspace transfer | Excluded | No workspace copying |
 | G3 real users | **NOT VERIFIED** | No distinct-PC/account/app discovery or actual model continuation |
-| G4 packaging/release | Local package validated | No install, marketplace registration, publication or GitHub creation |
+| G4 packaging/release | Local package validated | Source available on GitHub; native installation and marketplace distribution unverified |
 
 No environment flag, package field or approval can open native execution. Adding a native adapter requires separately reviewed implementation and all G0/G3 evidence, including tool-history preservation, package-wide boundary exclusion, source isolation, sender termination, receiver restart, source immutability, and actual app/account/machine verification. See [security policy](SECURITY.md) and [verification report](docs/VERIFICATION.md).
