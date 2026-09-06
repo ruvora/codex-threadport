@@ -4,6 +4,30 @@ ThreadPort 0.1.0 is a standalone, dependency-free **offline compatibility inspec
 
 The original [design](docs/source/THREADPORT_DESIGN.md), [contracts](docs/source/THREADPORT_CONTRACTS.md), and [implementation addendum](docs/THREADPORT_IMPLEMENTATION_ADDENDUM.md) remain byte-for-byte unchanged. The implemented subset and departures are recorded in [implementation status](docs/IMPLEMENTATION_STATUS.md). [한국어 사용법](docs/USAGE_KO.md).
 
+## Why ThreadPort exists
+
+ThreadPort's long-term goal is to let someone share a Codex conversation through a selected completed turn, so another person can continue from that history using their own environment and authentication. The unit of transfer is an explicitly bounded history with provenance. Preserving that continuity does not promise hidden model-state replication or identical future answers.
+
+**The sharing boundary must hold in the package itself.** Later turns must not travel in metadata or ancestor files simply because the receiving model would not normally see them. Messages, roles and tool-call/result pairing must remain coherent, and unsupported history must be reported. **History does not carry present authority:** imported text cannot grant credentials, install tools or authorize execution in the recipient's environment. These requirements explain why native transfer stays blocked even though local package inspection works. See the [original product design](docs/source/THREADPORT_DESIGN.md).
+
+## Technical architecture
+
+```text
+Supported source + completed-turn boundary -> history validation/materialization
+  -> bounded synthetic ZIP -> static package inspection -> compatibility report
+
+Fixture operation: immutable plan -> local approval -> journaled output
+  -> owned-output reconciliation (no native session creation)
+```
+
+Versioned source and package contracts isolate format assumptions. Strict parsing checks unknown fields, record order and tool pairing; the bounded ZIP reader checks membership, compression limits and content integrity without extracting files. Hashes detect inconsistency, but do not authenticate a sender or prove their source was truthful.
+
+For the synthetic operation core, SQLite with FULL synchronous WAL preserves immutable plans, approval bindings and operation intent. Outputs use atomic no-replace publication. After response loss, recovery checks the exact owned output instead of blindly creating another artifact. CLI and stdio MCP share this local service boundary. The [implementation addendum](docs/THREADPORT_IMPLEMENTATION_ADDENDUM.md) defines the intended contracts; [implementation status](docs/IMPLEMENTATION_STATUS.md) records the smaller implemented profile and its limits.
+
+## Direction
+
+Native portability requires a qualified source adapter, a history materializer that closes references within the selected boundary, and a recipient adapter that creates an independent durable session without automatically executing it. G0 must demonstrate resumption after the sender is stopped and inaccessible; G3 must demonstrate real discovery and continuation across distinct machines, accounts and apps. These are future acceptance requirements. The present product remains an offline inspector and synthetic test core until that evidence exists.
+
 ## Run locally
 
 Requires Node 24+ with builtin `node:sqlite` on PATH. After cloning, no npm install, network, browser, or socket listener is needed.
