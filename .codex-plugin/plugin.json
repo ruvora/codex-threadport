@@ -1,0 +1,5 @@
+{
+ "name":"threadport","version":"0.1.0","description":"RUVORA ThreadPort: offline compatibility previews and strict package inspection. Native transfer is blocked.",
+ "author":{"name":"RUVORA"},"skills":"./skills/","mcpServers":"./.mcp.json",
+ "interface":{"displayName":"RUVORA ThreadPort","shortDescription":"Inspect local conversation packages safely.","longDescription":"Offline inspection, blocked previews, and synthetic core fixtures. Native independent history export/import and cross-account resume are NOT VERIFIED.","developerName":"RUVORA","category":"Productivity","capabilities":["Read","Write"],"defaultPrompt":["Inspect a local ThreadPort package and explain compatibility blockers."]}
+}

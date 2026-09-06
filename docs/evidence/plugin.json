@@ -1,0 +1,8 @@
+{
+  "command": "/Users/sin-yebin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/validate-package.mjs",
+  "chunk_id": "8575dc",
+  "wall_time_seconds": 0.000001375,
+  "exit_code": 0,
+  "original_token_count": 70,
+  "output": "{\"valid\":true,\"validator\":\"repository Node builtin profile validator\",\"pluginName\":\"threadport\",\"version\":\"0.1.0\",\"manifest\":true,\"skillFrontmatter\":true,\"companionPaths\":true,\"stdioInitializeExit\":0,\"installationVerified\":false,\"nativeG0\":\"unverified\",\"nativeG3\":\"unverified\"}\n"
+}

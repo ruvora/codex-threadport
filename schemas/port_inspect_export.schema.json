@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:port_inspect_export",
+  "title": "port_inspect_export",
+  "type": "object",
+  "properties": {
+    "sourcePath": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "boundaryTurnId": {
+      "type": "string",
+      "maxLength": 64
+    }
+  },
+  "required": [
+    "sourcePath",
+    "boundaryTurnId"
+  ],
+  "additionalProperties": false
+}

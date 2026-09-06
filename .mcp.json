@@ -1,0 +1,1 @@
+{"mcpServers":{"threadport":{"command":"node","args":["${CODEX_PLUGIN_ROOT}/src/cli.mjs","--root","${CODEX_PLUGIN_ROOT}","mcp"]}}}

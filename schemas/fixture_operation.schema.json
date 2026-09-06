@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:fixture_operation",
+  "title": "fixture_operation",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "threadport.fixture-operation/0.1.0"
+    },
+    "operationId": {
+      "type": "string",
+      "maxLength": 36,
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "planId": {
+      "type": "string",
+      "maxLength": 36,
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "planDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "kind": {
+      "enum": [
+        "fixture_export",
+        "fixture_import"
+      ]
+    },
+    "state": {
+      "enum": [
+        "creating",
+        "attention",
+        "completed"
+      ]
+    },
+    "packageDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "historyDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nativeThreadRef": {
+      "const": null
+    },
+    "evidenceClass": {
+      "const": "synthetic_only"
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "createdFile": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 256
+        },
+        {
+          "const": null
+        }
+      ]
+    },
+    "error": {
+      "anyOf": [
+        {
+          "const": "IMPORT_RECONCILIATION_REQUIRED"
+        },
+        {
+          "const": null
+        }
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "operationId",
+    "planId",
+    "planDigest",
+    "kind",
+    "state",
+    "packageDigest",
+    "historyDigest",
+    "nativeThreadRef",
+    "evidenceClass",
+    "generation",
+    "createdFile",
+    "error"
+  ],
+  "additionalProperties": false
+}

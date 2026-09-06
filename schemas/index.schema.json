@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:index",
+  "title": "index",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "threadport.history/1.0.0"
+    },
+    "boundary": {
+      "type": "object",
+      "properties": {
+        "sourceAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "turnAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "inclusive": {
+          "const": true
+        },
+        "terminalStatus": {
+          "const": "completed"
+        },
+        "prefixDigest": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "sourceAlias",
+        "turnAlias",
+        "inclusive",
+        "terminalStatus",
+        "prefixDigest"
+      ],
+      "additionalProperties": false
+    },
+    "historyDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ordinal": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "recordAlias": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "turnAlias": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "originalType": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "originalRole": {
+            "enum": [
+              "user",
+              "assistant",
+              "tool",
+              "none"
+            ]
+          },
+          "callAlias": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              {
+                "const": null
+              }
+            ]
+          },
+          "contentDigest": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "sourceLocator": {
+            "type": "object",
+            "properties": {
+              "sourceAlias": {
+                "const": "source"
+              },
+              "ordinal": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "sourceAlias",
+              "ordinal"
+            ],
+            "additionalProperties": false
+          },
+          "recordDigest": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "ordinal",
+          "recordAlias",
+          "turnAlias",
+          "originalType",
+          "originalRole",
+          "callAlias",
+          "contentDigest",
+          "sourceLocator",
+          "recordDigest"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10000
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "boundary",
+    "historyDigest",
+    "entries"
+  ],
+  "additionalProperties": false
+}

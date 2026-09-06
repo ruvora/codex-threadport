@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:port_prepare_import",
+  "title": "port_prepare_import",
+  "type": "object",
+  "properties": {
+    "localPath": {
+      "type": "string",
+      "maxLength": 256
+    }
+  },
+  "required": [
+    "localPath"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:port_apply_import",
+  "title": "port_apply_import",
+  "type": "object",
+  "properties": {
+    "planId": {
+      "type": "string",
+      "maxLength": 36
+    }
+  },
+  "required": [
+    "planId"
+  ],
+  "additionalProperties": false
+}

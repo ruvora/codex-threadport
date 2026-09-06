@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:source",
+  "title": "source",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "threadport.synthetic-source/1.0.0"
+    },
+    "turns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "status": {
+            "enum": [
+              "completed",
+              "in_progress",
+              "interrupted"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                },
+                "kind": {
+                  "enum": [
+                    "message",
+                    "tool_call",
+                    "tool_result"
+                  ]
+                },
+                "payload": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "enum": [
+                            "user",
+                            "assistant"
+                          ]
+                        },
+                        "channel": {
+                          "enum": [
+                            "analysis",
+                            "commentary",
+                            "final",
+                            "none"
+                          ]
+                        },
+                        "text": {
+                          "type": "string",
+                          "maxLength": 1048576
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "channel",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "callAlias": {
+                          "type": "string",
+                          "maxLength": 64,
+                          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                        },
+                        "namespace": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 64,
+                              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                            },
+                            {
+                              "const": null
+                            }
+                          ]
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 4096
+                        },
+                        "argumentsText": {
+                          "type": "string",
+                          "maxLength": 1048576
+                        }
+                      },
+                      "required": [
+                        "callAlias",
+                        "namespace",
+                        "name",
+                        "argumentsText"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "callAlias": {
+                          "type": "string",
+                          "maxLength": 64,
+                          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                        },
+                        "outputText": {
+                          "type": "string",
+                          "maxLength": 1048576
+                        },
+                        "status": {
+                          "enum": [
+                            "completed",
+                            "failed"
+                          ]
+                        },
+                        "exitCode": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -2147483648,
+                              "maximum": 2147483647
+                            },
+                            {
+                              "const": null
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "callAlias",
+                        "outputText",
+                        "status",
+                        "exitCode"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "payload"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 10000
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1000
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "turns"
+  ],
+  "additionalProperties": false
+}

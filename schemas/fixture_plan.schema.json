@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:fixture_plan",
+  "title": "fixture_plan",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "threadport.fixture-operation/0.1.0"
+    },
+    "planId": {
+      "type": "string",
+      "maxLength": 36,
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "revision": {
+      "const": 1
+    },
+    "kind": {
+      "enum": [
+        "fixture_export",
+        "fixture_import"
+      ]
+    },
+    "target": {
+      "const": "fixture-local"
+    },
+    "rootBinding": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "policyVersion": {
+      "const": "threadport.policy/0.1.0"
+    },
+    "adapterVersion": {
+      "const": "synthetic-v1/1.0.0"
+    },
+    "packageDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "historyDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "preview": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "threadport.inspection/0.1.0"
+        },
+        "valid": {
+          "const": true
+        },
+        "packageDigest": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "historyDigest": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "recordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "fidelity": {
+          "const": "exact_stored_history"
+        },
+        "evidenceClass": {
+          "const": "synthetic_only"
+        },
+        "identityStatus": {
+          "const": "unverified_claim"
+        },
+        "nativeExecutable": {
+          "const": false
+        },
+        "gates": {
+          "type": "object",
+          "properties": {
+            "G0": {
+              "const": "unverified"
+            },
+            "G3": {
+              "const": "unverified"
+            }
+          },
+          "required": [
+            "G0",
+            "G3"
+          ],
+          "additionalProperties": false
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "maxItems": 8
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "maxItems": 8
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "valid",
+        "packageDigest",
+        "historyDigest",
+        "recordCount",
+        "fidelity",
+        "evidenceClass",
+        "identityStatus",
+        "nativeExecutable",
+        "gates",
+        "blockers",
+        "warnings"
+      ],
+      "additionalProperties": false
+    },
+    "expiresAt": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "expectedEffects": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "write_fixture_zip",
+          "write_fixture_session"
+        ]
+      },
+      "maxItems": 1
+    },
+    "nativeExecutable": {
+      "const": false
+    },
+    "planDigest": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "planId",
+    "revision",
+    "kind",
+    "target",
+    "rootBinding",
+    "policyVersion",
+    "adapterVersion",
+    "packageDigest",
+    "historyDigest",
+    "preview",
+    "expiresAt",
+    "expectedEffects",
+    "nativeExecutable",
+    "planDigest"
+  ],
+  "additionalProperties": false
+}

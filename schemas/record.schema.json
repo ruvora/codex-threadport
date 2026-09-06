@@ -1,0 +1,332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:record",
+  "title": "record",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "threadport.history/1.0.0"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "recordAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "turnAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "originalType": {
+          "const": "message"
+        },
+        "originalRole": {
+          "enum": [
+            "user",
+            "assistant",
+            "tool",
+            "none"
+          ]
+        },
+        "authority": {
+          "const": "historical_data"
+        },
+        "kind": {
+          "const": "message"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "enum": [
+                "user",
+                "assistant"
+              ]
+            },
+            "channel": {
+              "enum": [
+                "analysis",
+                "commentary",
+                "final",
+                "none"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 1048576
+            }
+          },
+          "required": [
+            "role",
+            "channel",
+            "text"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ordinal",
+        "recordAlias",
+        "turnAlias",
+        "originalType",
+        "originalRole",
+        "authority",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "threadport.history/1.0.0"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "recordAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "turnAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "originalType": {
+          "const": "tool_call"
+        },
+        "originalRole": {
+          "enum": [
+            "user",
+            "assistant",
+            "tool",
+            "none"
+          ]
+        },
+        "authority": {
+          "const": "historical_data"
+        },
+        "kind": {
+          "const": "tool_call"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "callAlias": {
+              "type": "string",
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "namespace": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                },
+                {
+                  "const": null
+                }
+              ]
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "argumentsText": {
+              "type": "string",
+              "maxLength": 1048576
+            }
+          },
+          "required": [
+            "callAlias",
+            "namespace",
+            "name",
+            "argumentsText"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ordinal",
+        "recordAlias",
+        "turnAlias",
+        "originalType",
+        "originalRole",
+        "authority",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "threadport.history/1.0.0"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "recordAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "turnAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "originalType": {
+          "const": "tool_result"
+        },
+        "originalRole": {
+          "enum": [
+            "user",
+            "assistant",
+            "tool",
+            "none"
+          ]
+        },
+        "authority": {
+          "const": "historical_data"
+        },
+        "kind": {
+          "const": "tool_result"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "callAlias": {
+              "type": "string",
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "outputText": {
+              "type": "string",
+              "maxLength": 1048576
+            },
+            "status": {
+              "enum": [
+                "completed",
+                "failed"
+              ]
+            },
+            "exitCode": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": -2147483648,
+                  "maximum": 2147483647
+                },
+                {
+                  "const": null
+                }
+              ]
+            }
+          },
+          "required": [
+            "callAlias",
+            "outputText",
+            "status",
+            "exitCode"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ordinal",
+        "recordAlias",
+        "turnAlias",
+        "originalType",
+        "originalRole",
+        "authority",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "threadport.history/1.0.0"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "recordAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "turnAlias": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+        },
+        "originalType": {
+          "const": "turn_end"
+        },
+        "originalRole": {
+          "enum": [
+            "user",
+            "assistant",
+            "tool",
+            "none"
+          ]
+        },
+        "authority": {
+          "const": "historical_data"
+        },
+        "kind": {
+          "const": "turn_end"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "completed"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ordinal",
+        "recordAlias",
+        "turnAlias",
+        "originalType",
+        "originalRole",
+        "authority",
+        "kind",
+        "payload"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

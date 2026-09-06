@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:checksums",
+  "title": "checksums",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "threadport.package/1.0.0"
+    },
+    "algorithm": {
+      "const": "sha256"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "byteLength": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "sha256": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "byteLength",
+          "sha256"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "algorithm",
+    "files"
+  ],
+  "additionalProperties": false
+}

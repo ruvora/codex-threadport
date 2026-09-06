@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ruvora:threadport:0.1.0:provenance",
+  "title": "provenance",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "threadport.package/1.0.0"
+    },
+    "sourceAlias": {
+      "const": "source"
+    },
+    "boundaryTurnAlias": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+    },
+    "lineageAliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 64,
+        "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+      },
+      "maxItems": 0
+    },
+    "identityStatus": {
+      "const": "unverified_claim"
+    },
+    "nativeLineage": {
+      "const": "not_asserted"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "sourceAlias",
+    "boundaryTurnAlias",
+    "lineageAliases",
+    "identityStatus",
+    "nativeLineage"
+  ],
+  "additionalProperties": false
+}
